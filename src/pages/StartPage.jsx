@@ -75,9 +75,29 @@ const StartPage = () => {
           )}
           {!isLoading && showQuiz && (
             <Quiz
-              ques={quizData[0].question}
-              rightAnswer={quizData[0].correct_answer}
-              wrongAnswer={quizData[0].incorrect_answers}
+              ques={quizData[currentQuestionIndex].question}
+              rightAnswer={quizData[currentQuestionIndex].correct_answer}
+              wrongAnswer={quizData[currentQuestionIndex].incorrect_answers}
+              handleNextQuestion={() =>{
+                let index = currentQuestionIndex;
+                if(index >= quizData.length-1)
+                {
+                  setCurrentQuestionIndex(0);
+                }
+                else{
+                  setCurrentQuestionIndex(++index);
+                }
+              }}
+              handlePreviousQuestion = {() =>{
+                let index = currentQuestionIndex;
+                if(index <= 0)
+                {
+                  setCurrentQuestionIndex(0);
+                }
+                else{
+                  setCurrentQuestionIndex(--index);
+                }
+              }}
             />
           )}
         </div>
