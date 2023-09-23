@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
 const Quiz = () => {
   return (
     <div>
-      <h1>Quiz is here.</h1>
+      Quiz hu ma.
     </div>
-  )
-}
+  );
+};
 
-export default Quiz
+export default Quiz;
