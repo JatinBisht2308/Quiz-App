@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Modal, Button } from "react-bootstrap";
 
 const Instructions = ({ show, handleClose, onStartQuiz }) => {
   const [agreed, setAgreed] = useState(false);
@@ -21,6 +21,25 @@ const Instructions = ({ show, handleClose, onStartQuiz }) => {
         <Modal.Title>Instructions</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <ol>
+          <li>
+            Quizzes may cover a variety of topics, including general knowledge,
+            sports, science, and more.
+          </li>
+          <li>You can attempt each quiz only once.</li>
+          <li>
+            Questions are timed, so answer quickly and accurately to earn the
+            highest score.
+          </li>
+          <li>
+            You can view your quiz results and compare them with other users'
+            scores.
+          </li>
+          <li>
+            If you encounter any issues or have suggestions for improvement,
+            please contact our support team.
+          </li>
+        </ol>
         <p>Read and agree to the terms and conditions:</p>
         <label>
           <input
@@ -32,11 +51,7 @@ const Instructions = ({ show, handleClose, onStartQuiz }) => {
         </label>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="primary"
-          onClick={handleStartQuiz}
-          disabled={!agreed}
-        >
+        <Button variant="primary" onClick={handleStartQuiz} disabled={!agreed}>
           Start Quiz
         </Button>
       </Modal.Footer>
