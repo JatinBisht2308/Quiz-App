@@ -19,7 +19,9 @@ const DetailsPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Store name and mail in local storage
+    localStorage.setItem("name", name);
+    localStorage.setItem("mail", mail);
     try {
       console.log(name);
       console.log(mail);

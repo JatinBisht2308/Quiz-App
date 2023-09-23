@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-const Instructions = ({ show, handleClose, onStartQuiz }) => {
+const Instructions = ({ show, onStartQuiz }) => {
   const [agreed, setAgreed] = useState(false);
 
   const handleCheckboxChange = (e) => {
@@ -11,7 +11,6 @@ const Instructions = ({ show, handleClose, onStartQuiz }) => {
   const handleStartQuiz = () => {
     if (agreed) {
       onStartQuiz();
-      // handleClose();
     }
   };
 
