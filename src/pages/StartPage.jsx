@@ -11,6 +11,7 @@ const StartPage = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
 
   useEffect(() => {
     const name = localStorage.getItem("name");
@@ -36,17 +37,17 @@ const StartPage = () => {
         className="row m-0 mainComp"
         style={{ height: `calc(100vh - ${navbarHeight}px)` }}
       >
-        <div className="col-md-3"
+        <div className="col-md-3 left-section"
         style={{backgroundColor: '#31393C'}}
         >
           <QuestionCounter
             totalQuestions={15}
-            answeredQuestions={0}
+            answeredQuestions={answeredQuestions}
             userName={name}
             userMail={mail}
           />
         </div>
-        <div className="col-md-9 bg-light">
+        <div className="col-md-9 bg-light right-section">
           {/* Instructions Modal */}
           {showInstructions && (
             <Instructions
