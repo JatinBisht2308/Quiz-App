@@ -29,19 +29,25 @@ const StartPage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // Load quiz data when the component mounts
+    if (showQuiz && quizData.length === 0) {
+      axios.get("https://opentdb.com/api.php?amount=15").then((response) => {
+        // Check if the request was successful
+        console.log(response.status);
+        if (response.status === 200) {
+          // Set the fetched data to the quizData state
+          setQuizData(response.data.results);
+          console.log(response.data.results);
+          setIsLoading(false);
+        } else {
+          console.error("Failed to fetch data from the API");
+        }
+      });
+    }
+  }, [showQuiz, quizData]);
+
   const handleStartQuiz = () => {
-    axios.get("https://opentdb.com/api.php?amount=15").then((response) => {
-      // Check if the request was successful
-      console.log(response.status);
-      if (response.status === 200) {
-        // Set the fetched data to the quizData state
-        setQuizData(response.data.results);
-        console.log(response.data.results);
-        setIsLoading(false);
-      } else {
-        console.error("Failed to fetch data from the API");
-      }
-    });
     setShowInstructions(false);
     setShowQuiz(true);
   };
@@ -73,28 +79,27 @@ const StartPage = () => {
               onStartQuiz={handleStartQuiz}
             />
           )}
+          <div className="container question-navigation">
+            {/* here will be the question navigation comes......... */}
+          </div>
           {!isLoading && showQuiz && (
             <Quiz
               ques={quizData[currentQuestionIndex].question}
-              rightAnswer={quizData[currentQuestionIndex].correct_answer}
               wrongAnswer={quizData[currentQuestionIndex].incorrect_answers}
-              handleNextQuestion={() =>{
+              rightAnswer={quizData[currentQuestionIndex].correct_answer}
+              handleNextQuestion={async () => {
                 let index = currentQuestionIndex;
-                if(index >= quizData.length-1)
-                {
+                if (index >= quizData.length - 1) {
                   setCurrentQuestionIndex(0);
-                }
-                else{
+                } else {
                   setCurrentQuestionIndex(++index);
                 }
               }}
-              handlePreviousQuestion = {() =>{
+              handlePreviousQuestion={async () => {
                 let index = currentQuestionIndex;
-                if(index <= 0)
-                {
+                if (index <= 0) {
                   setCurrentQuestionIndex(0);
-                }
-                else{
+                } else {
                   setCurrentQuestionIndex(--index);
                 }
               }}
