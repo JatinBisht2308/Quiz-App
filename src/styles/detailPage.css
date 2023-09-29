@@ -21,6 +21,9 @@
   justify-content: center;
   align-items: center;
 }
+.right-cont > img{
+  width: 80%;
+}
 .details-form {
   display: flex;
   justify-content: flex-start;
@@ -77,4 +80,41 @@
 }
 .socials  > a > img{
     width: 45px;
+}
+@media screen and (max-width: 980px) {
+  .right-cont{
+    width: 55%;
+  }
+  .right-cont > img{
+    width: 90%;
+  }
+  .left-cont{
+    width: 40%;
+  }
+}
+@media screen and (max-width: 810px) {
+  .right-cont{
+    width: 50%;
+  }
+  .right-cont > img{
+    width: 100%;
+  }
+  .left-cont{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .right-cont{
+    display: none;;
+  }
+}
+@media screen and (max-width: 450px) {
+  .left-cont{
+    width: 70%;
+  }
+}
+@media screen and (max-width: 300px) {
+  .left-cont{
+    width: 90%;
+  }
 }
