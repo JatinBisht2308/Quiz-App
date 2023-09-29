@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import "../styles/detailPage.css";
+import rightImage from "../assets/detailImage.png";
+import Linkedin from '../assets/Linkedin.png';
+import Instagram from '../assets/Instagram.png';
+import Github from '../assets/GitHub.png';
+import Medium from '../assets/Medium.png';
+import Gmail from '../assets/Gmail.png';
 
 const DetailsPage = () => {
   const [name, setName] = useState("");
@@ -33,47 +39,64 @@ const DetailsPage = () => {
 
   return (
     <div className="DetailsPage">
-      <Navbar />
-      <div className="row justify-content-center mt-3"
-      style={{ marginRight: '0px'}}
-      >
-        <div className="col-md-4 p-4">
-          <form
-            onSubmit={handleSubmit}
-            className="p-4"
-            style={{ backgroundColor: "#e5e1ff" }}
-          >
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
+      <div className="left-cont">
+        <div className="left-sub-cont">
+          <h3>Welcome back</h3>
+          <p>Welcome back please enter your details</p>
+          <form onSubmit={handleSubmit} className="details-form">
+            <div className="sub-input">
+              <label htmlFor="name">
                 Full Name:
               </label>
               <input
                 type="text"
-                className="form-control"
+                className="detail-input"
                 id="name"
                 value={name}
                 onChange={handleOnChangeName}
+                placeholder="enter your name"
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
+            <div className="sub-input">
+              <label htmlFor="email" className="">
                 Email:
               </label>
               <input
                 type="email"
-                className="form-control"
+                className="detail-input"
                 id="email"
                 value={mail}
                 onChange={handleOnChangeMail}
+                placeholder="enter your mail"
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary">
+            <button type="submit">
               Submit
             </button>
           </form>
+          <div className="socials">
+            <a href="mailto:jatinbisht2308@gmail.com">
+              <img src={Gmail} alt="" />
+            </a>
+            <a href="https://github.com/JatinBisht2308">
+              <img src={Github} alt="" />
+            </a>
+            <a href="https://www.linkedin.com/in/jatin-bisht-ba62111bb/">
+              <img src={Linkedin} alt="" />
+            </a>
+            <a href="https://www.instagram.com/the_soloshifter390/">
+              <img src={Instagram} alt="" />
+            </a>
+            <a href="https://medium.com/@jatinbisht2308">
+              <img src={Medium} alt="" />
+            </a>
+          </div>
         </div>
+      </div>
+      <div className="col right-cont">
+        <img src={rightImage} alt="" />
       </div>
     </div>
   );

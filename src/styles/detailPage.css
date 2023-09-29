@@ -1,0 +1,80 @@
+.DetailsPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.left-cont {
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.right-cont {
+  background: #212121;
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.details-form {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.left-sub-cont > h3 {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.left-sub-cont > p {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #757575;
+  margin-bottom: 1.5rem;
+}
+.sub-input {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.sub-input > label {
+  margin-bottom: 5px;
+}
+.detail-input {
+  border-radius: 16px;
+  border: 1px solid var(--neutral-5-o, #c2c2c2);
+  font-size: 16px;
+  font-style: normal;
+  line-height: normal;
+  padding: 8px 15px;
+  margin-bottom: 10px;
+}
+.details-form > button {
+  border-radius: 16px;
+  border: none;
+  background: #3b77d7;
+  margin-top: 10px;
+  display: flex;
+  padding: 8px 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  color: white;
+}
+.socials{
+    margin-top: 10px;
+    display: flex;
+    justify-content:space-between;
+}
+.socials  > a > img{
+    width: 45px;
+}

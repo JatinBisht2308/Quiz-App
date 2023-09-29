@@ -1,5 +1,4 @@
 import React from "react";
-import ".././styles/questionCounter.css";
 const QustionCounter = ({
   totalQuestions,
   answeredQuestions,
