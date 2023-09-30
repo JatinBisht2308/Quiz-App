@@ -35,8 +35,7 @@ const Instructions = ({ show, onStartQuiz }) => {
             scores.
           </li>
           <li>
-            If you encounter any issues or have suggestions for improvement,
-            please contact our support team.
+            Please do not refresh the browser after the timer starts.
           </li>
         </ol>
         <p>Read and agree to the terms and conditions:</p>

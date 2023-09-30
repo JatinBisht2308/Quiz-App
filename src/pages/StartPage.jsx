@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import Instructions from "../components/Instructions";
@@ -10,18 +12,14 @@ const StartPage = () => {
   const [showInstructions, setShowInstructions] = useState(true);
   const [showQuiz, setShowQuiz] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const [name, setName] = useState("");
-  const [mail, setMail] = useState("");
   const [answeredQuestions, setAnsweredQuestions] = useState(0);
   const [quizData, setQuizData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.userData);
 
   useEffect(() => {
-    const name = localStorage.getItem("name");
-    const mail = localStorage.getItem("mail");
-    setMail(mail);
-    setName(name);
     const navbarElement = document.querySelector(".navbar");
     if (navbarElement) {
       const height = navbarElement.offsetHeight;
@@ -50,6 +48,7 @@ const StartPage = () => {
   const handleStartQuiz = () => {
     setShowInstructions(false);
     setShowQuiz(true);
+    
   };
 
   return (
@@ -66,8 +65,8 @@ const StartPage = () => {
           <QuestionCounter
             totalQuestions={15}
             answeredQuestions={answeredQuestions}
-            userName={name}
-            userMail={mail}
+            userName={userDetails.name}
+            userMail={userDetails.mail}
           />
         </div>
         <div className="col-md-9 bg-light right-section">
@@ -82,28 +81,44 @@ const StartPage = () => {
           <div className="container question-navigation">
             {/* here will be the question navigation comes......... */}
           </div>
-          {!isLoading && showQuiz && (
-            <Quiz
-              ques={quizData[currentQuestionIndex].question}
-              wrongAnswer={quizData[currentQuestionIndex].incorrect_answers}
-              rightAnswer={quizData[currentQuestionIndex].correct_answer}
-              handleNextQuestion={async () => {
-                let index = currentQuestionIndex;
-                if (index >= quizData.length - 1) {
-                  setCurrentQuestionIndex(0);
-                } else {
-                  setCurrentQuestionIndex(++index);
-                }
-              }}
-              handlePreviousQuestion={async () => {
-                let index = currentQuestionIndex;
-                if (index <= 0) {
-                  setCurrentQuestionIndex(0);
-                } else {
-                  setCurrentQuestionIndex(--index);
-                }
-              }}
+
+          {isLoading && showQuiz ? (
+            // Loader will be shown
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="#5794ef"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
             />
+          ) : (
+            !isLoading &&
+            showQuiz && (
+              <Quiz
+                ques={quizData[currentQuestionIndex].question}
+                wrongAnswer={quizData[currentQuestionIndex].incorrect_answers}
+                rightAnswer={quizData[currentQuestionIndex].correct_answer}
+                handleNextQuestion={async () => {
+                  let index = currentQuestionIndex;
+                  if (index >= quizData.length - 1) {
+                    setCurrentQuestionIndex(0);
+                  } else {
+                    setCurrentQuestionIndex(++index);
+                  }
+                }}
+                handlePreviousQuestion={async () => {
+                  let index = currentQuestionIndex;
+                  if (index <= 0) {
+                    setCurrentQuestionIndex(0);
+                  } else {
+                    setCurrentQuestionIndex(--index);
+                  }
+                }}
+              />
+            )
           )}
         </div>
       </div>
