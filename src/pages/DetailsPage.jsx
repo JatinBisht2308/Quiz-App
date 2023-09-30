@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../features/auth/authSlice";
 import "../styles/detailPage.css";
 import rightImage from "../assets/detailImage.png";
-import Linkedin from '../assets/Linkedin.png';
-import Instagram from '../assets/Instagram.png';
-import Github from '../assets/GitHub.png';
-import Medium from '../assets/Medium.png';
-import Gmail from '../assets/Gmail.png';
+import Linkedin from "../assets/Linkedin.png";
+import Instagram from "../assets/Instagram.png";
+import Github from "../assets/GitHub.png";
+import Medium from "../assets/Medium.png";
+import Gmail from "../assets/Gmail.png";
 
 const DetailsPage = () => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleOnChangeName = (e) => {
     const newName = e.target.value;
@@ -25,9 +28,8 @@ const DetailsPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Store name and mail in local storage
-    localStorage.setItem("name", name);
-    localStorage.setItem("mail", mail);
+    // Store name and mail in redux store using authReducer
+    dispatch(login({name: `${name}`, mail: `${mail}`}));
     try {
       console.log(name);
       console.log(mail);
@@ -36,7 +38,6 @@ const DetailsPage = () => {
       alert(err.message);
     }
   };
-
   return (
     <div className="DetailsPage">
       <div className="left-cont">
@@ -45,9 +46,7 @@ const DetailsPage = () => {
           <p>Welcome back please enter your details</p>
           <form onSubmit={handleSubmit} className="details-form">
             <div className="sub-input">
-              <label htmlFor="name">
-                Full Name:
-              </label>
+              <label htmlFor="name">Full Name:</label>
               <input
                 type="text"
                 className="detail-input"
@@ -72,9 +71,7 @@ const DetailsPage = () => {
                 required
               />
             </div>
-            <button type="submit">
-              Submit
-            </button>
+            <button type="submit">Submit</button>
           </form>
           <div className="socials">
             <a href="mailto:jatinbisht2308@gmail.com">
