@@ -13,14 +13,12 @@ code {
     monospace;
 }
 .quiz-btn {
-  width: 15rem;
   padding: 5px 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   background: #ffffff;
-  margin-right: 8px;
   border-radius: 25px;
   border: 1px solid  #8ab2ef;
   background: #ffffff;

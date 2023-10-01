@@ -2,7 +2,9 @@ import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
     quizData: {},
-    userResponse: {},
+    // the below array will have objects inside it and the objects look like: 
+    // {questionIndex: 1, checkedOption:"Java Language is more popular", isAnswerCorrect: true/false}
+    userResponse: [],
 };
 
 
@@ -13,10 +15,13 @@ export const quizSlice = createSlice({
     showQuiz: (state,actions) => {
       const quizDataa = actions.payload;
       state.quizData = quizDataa;
-      console.log(state.quizData);
+    },
+    getUserResponse: (state,actions) =>{
+      const response = actions.payload;
+      state.userResponse.push(response);
     },
   }
 });
 
-export const {showQuiz} = quizSlice.actions;
+export const {showQuiz,getUserResponse} = quizSlice.actions;
 export default quizSlice.reducer;

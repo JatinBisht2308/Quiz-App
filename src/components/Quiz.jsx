@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import { useSelector, useDispatch } from "react-redux";
-import { showQuiz } from "../features/quiz/quizSlice";
+import { showQuiz, getUserResponse } from "../features/quiz/quizSlice";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 const Quiz = () => {
   const quizDetails = useSelector((state) => state.showQuiz.quizData);
+  const dispatch = useDispatch();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [ques, setQues] = useState("");
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
 
   useEffect(() => {
     if (quizDetails.length > 0) {
@@ -32,6 +34,12 @@ const Quiz = () => {
   };
 
   const handleOptionChange = (option) => {
+    if (option === quizDetails[questionIndex].correct_answer) {
+      setIsAnswerCorrect(true);
+    }
+    else{
+      setIsAnswerCorrect(false);
+    }
     setSelectedOption(option);
   };
 
@@ -46,6 +54,20 @@ const Quiz = () => {
       setQuestionIndex(questionIndex + 1);
     }
   };
+  const handleSubmitQuestion = () => {
+    if (selectedOption != null) {
+      dispatch(
+        getUserResponse({
+          questionIndex: `${questionIndex}`,
+          selectedOption: `${selectedOption}`,
+          isAnswerCorrect: `${isAnswerCorrect}`,
+        })
+      );
+    } else {
+      alert("Please choose an option before submitting");
+    }
+  };
+  const handleSubmitQuiz = () => {};
   const formattedQuestion = ques
     .replace(/&#039;/g, "'")
     .replace(/&quot;/g, '"');
@@ -66,18 +88,29 @@ const Quiz = () => {
         ))}
       </Form>
       <hr />
-      <div
-        className="d-flex justify-content-between mt-1"
-        style={{ width: "13.8%" }}
-      >
-        <button type="button" className="quiz-btn" onClick={handleBack}>
-          <AiOutlineArrowLeft />
-          &nbsp;Back
-        </button>
-        <button type="button" className="quiz-btn" onClick={handleNext}>
-          Next&nbsp;
-          <AiOutlineArrowRight />
-        </button>
+      <div className="d-flex justify-content-between mt-1">
+        <div className="d-flex justify-content-start">
+          <button type="button" className="quiz-btn mx-2" onClick={handleBack}>
+            <AiOutlineArrowLeft />
+            &nbsp;Back
+          </button>
+          <button type="button" className="quiz-btn" onClick={handleNext}>
+            Next&nbsp;
+            <AiOutlineArrowRight />
+          </button>
+        </div>
+        <div className="d-flex">
+          <button
+            type="button"
+            className="quiz-btn mx-2"
+            onClick={handleSubmitQuestion}
+          >
+            Submit Question
+          </button>
+          <button type="button" className="quiz-btn" onClick={handleSubmitQuiz}>
+            Submit Quiz
+          </button>
+        </div>
       </div>
     </div>
   );
