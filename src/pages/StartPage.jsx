@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { showQuiz} from '../features/quiz/quizSlice';
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import Navbar from "../components/Navbar";
@@ -10,14 +11,14 @@ import QuestionCounter from "../components/QuestionCounter";
 
 const StartPage = () => {
   const [showInstructions, setShowInstructions] = useState(true);
-  const [showQuiz, setShowQuiz] = useState(false);
+  const [showQuizz, setShowQuizz] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState(0);
   const [quizData, setQuizData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.userData);
+  const userDetails = useSelector((state) => state.login.userData);
 
   useEffect(() => {
     const navbarElement = document.querySelector(".navbar");
@@ -29,26 +30,25 @@ const StartPage = () => {
 
   useEffect(() => {
     // Load quiz data when the component mounts
-    if (showQuiz && quizData.length === 0) {
+    if (showQuizz && quizData.length === 0) {
       axios.get("https://opentdb.com/api.php?amount=15").then((response) => {
         // Check if the request was successful
         console.log(response.status);
         if (response.status === 200) {
           // Set the fetched data to the quizData state
           setQuizData(response.data.results);
-          console.log(response.data.results);
+          dispatch(showQuiz(response.data.results));
           setIsLoading(false);
         } else {
           console.error("Failed to fetch data from the API");
         }
       });
     }
-  }, [showQuiz, quizData]);
+  }, [showQuizz, quizData]);
 
   const handleStartQuiz = () => {
     setShowInstructions(false);
-    setShowQuiz(true);
-    
+    setShowQuizz(true);
   };
 
   return (
@@ -82,7 +82,7 @@ const StartPage = () => {
             {/* here will be the question navigation comes......... */}
           </div>
 
-          {isLoading && showQuiz ? (
+          {isLoading && showQuizz ? (
             // Loader will be shown
             <ThreeDots
               height="80"
@@ -96,7 +96,7 @@ const StartPage = () => {
             />
           ) : (
             !isLoading &&
-            showQuiz && (
+            showQuizz && (
               <Quiz
                 ques={quizData[currentQuestionIndex].question}
                 wrongAnswer={quizData[currentQuestionIndex].incorrect_answers}

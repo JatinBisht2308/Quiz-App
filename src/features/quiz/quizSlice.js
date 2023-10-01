@@ -1,8 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-const initialState = [{
+const initialState = {
     quizData: {},
-}];
+};
 
 
 export const quizSlice = createSlice({
@@ -10,8 +10,9 @@ export const quizSlice = createSlice({
   initialState,
   reducers : {
     showQuiz: (state,actions) => {
-      const quizData = actions.payload;
-      console.log(quizData);
+      const quizDataa = actions.payload;
+      state.quizData = quizDataa;
+      console.log(state.quizData);
     },
   }
 });

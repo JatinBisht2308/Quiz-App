@@ -3,8 +3,8 @@ import { combineReducers } from "@reduxjs/toolkit";
 import quizReducer from '../features/quiz/quizSlice';
 
 const rootReducer = combineReducers({
-    auth: authReducer,
-    quiz: quizReducer,
+    login: authReducer,
+    showQuiz: quizReducer,
 });
 
 export default rootReducer;
