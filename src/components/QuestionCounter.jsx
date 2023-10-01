@@ -1,11 +1,15 @@
-import React from "react";
-import {useSelector,useDispatch} from 'react-redux';
-const QustionCounter = ({
-  totalQuestions,
-  answeredQuestions,
-}) => {
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+const QustionCounter = ({ totalQuestions }) => {
   const userDetails = useSelector((state) => state.login.userData);
-  const dispatch = useDispatch();
+  const userAnswers = useSelector(
+    (state) => state.getUserResponse.userResponse
+  );
+  const [answeredQuestions, setAnsweredQuestions] = useState(0);
+  useEffect(() => {
+    setAnsweredQuestions(userAnswers.length);
+    console.log(userAnswers);
+  }, [userAnswers]);
   return (
     <div className="question-counter row p-2">
       <h1 style={{ color: "#fff" }}>{userDetails.name}</h1>

@@ -13,7 +13,6 @@ const StartPage = () => {
   const [showInstructions, setShowInstructions] = useState(true);
   const [showQuizz, setShowQuizz] = useState(false);
   const [navbarHeight, setNavbarHeight] = useState(0);
-  const [answeredQuestions, setAnsweredQuestions] = useState(0);
   const [quizData, setQuizData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
@@ -69,7 +68,6 @@ const StartPage = () => {
         >
           <QuestionCounter
             totalQuestions={15}
-            answeredQuestions={answeredQuestions}
           />
         </div>
         <div className="col-md-9 bg-light right-section">
