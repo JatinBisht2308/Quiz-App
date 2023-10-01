@@ -97,27 +97,7 @@ const StartPage = () => {
           ) : (
             !isLoading &&
             showQuizz && (
-              <Quiz
-                ques={quizData[currentQuestionIndex].question}
-                wrongAnswer={quizData[currentQuestionIndex].incorrect_answers}
-                rightAnswer={quizData[currentQuestionIndex].correct_answer}
-                handleNextQuestion={async () => {
-                  let index = currentQuestionIndex;
-                  if (index >= quizData.length - 1) {
-                    setCurrentQuestionIndex(0);
-                  } else {
-                    setCurrentQuestionIndex(++index);
-                  }
-                }}
-                handlePreviousQuestion={async () => {
-                  let index = currentQuestionIndex;
-                  if (index <= 0) {
-                    setCurrentQuestionIndex(0);
-                  } else {
-                    setCurrentQuestionIndex(--index);
-                  }
-                }}
-              />
+              <Quiz/>
             )
           )}
         </div>
