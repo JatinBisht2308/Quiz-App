@@ -1,13 +1,14 @@
 import React from "react";
+import {useSelector,useDispatch} from 'react-redux';
 const QustionCounter = ({
   totalQuestions,
   answeredQuestions,
-  userName,
-  userMail,
 }) => {
+  const userDetails = useSelector((state) => state.login.userData);
+  const dispatch = useDispatch();
   return (
     <div className="question-counter row p-2">
-      <h1 style={{ color: "#fff" }}>{userName}</h1>
+      <h1 style={{ color: "#fff" }}>{userDetails.name}</h1>
       <div className="container mt-3 d-flex justify-content-between">
         <div
           className="card p-0"

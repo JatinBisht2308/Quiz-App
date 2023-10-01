@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { showQuiz} from '../features/quiz/quizSlice';
+import { useDispatch } from "react-redux";
+import { showQuiz } from "../features/quiz/quizSlice";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import Navbar from "../components/Navbar";
@@ -16,9 +16,7 @@ const StartPage = () => {
   const [answeredQuestions, setAnsweredQuestions] = useState(0);
   const [quizData, setQuizData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const dispatch = useDispatch();
-  const userDetails = useSelector((state) => state.login.userData);
 
   useEffect(() => {
     const navbarElement = document.querySelector(".navbar");
@@ -31,18 +29,25 @@ const StartPage = () => {
   useEffect(() => {
     // Load quiz data when the component mounts
     if (showQuizz && quizData.length === 0) {
-      axios.get("https://opentdb.com/api.php?amount=15").then((response) => {
-        // Check if the request was successful
-        console.log(response.status);
-        if (response.status === 200) {
-          // Set the fetched data to the quizData state
-          setQuizData(response.data.results);
-          dispatch(showQuiz(response.data.results));
+      axios
+        .get("https://opentdb.com/api.php?amount=15")
+        .then((response) => {
+          // Check if the request was successful
+          console.log(response.status);
+          if (response.status === 200) {
+            dispatch(showQuiz(response.data.results));
+            setQuizData(response.data.results);
+            setIsLoading(false);
+          } else {
+            console.error("Failed to fetch data from the API");
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        })
+        .finally(() => {
           setIsLoading(false);
-        } else {
-          console.error("Failed to fetch data from the API");
-        }
-      });
+        });
     }
   }, [showQuizz, quizData]);
 
@@ -65,8 +70,6 @@ const StartPage = () => {
           <QuestionCounter
             totalQuestions={15}
             answeredQuestions={answeredQuestions}
-            userName={userDetails.name}
-            userMail={userDetails.mail}
           />
         </div>
         <div className="col-md-9 bg-light right-section">
@@ -95,10 +98,7 @@ const StartPage = () => {
               visible={true}
             />
           ) : (
-            !isLoading &&
-            showQuizz && (
-              <Quiz/>
-            )
+            !isLoading && showQuizz && <Quiz />
           )}
         </div>
       </div>
