@@ -5,6 +5,7 @@ import { showQuiz, getUserResponse } from "../features/quiz/quizSlice";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 const Quiz = () => {
   const quizDetails = useSelector((state) => state.showQuiz.quizData);
+  const userResponse = useSelector((state) => state.showQuiz.userResponse);
   const dispatch = useDispatch();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [ques, setQues] = useState("");
@@ -13,13 +14,14 @@ const Quiz = () => {
   const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
 
   useEffect(() => {
+    console.log("Use effect called");
     if (quizDetails.length > 0) {
       // Check if there are quizDetails available
       setQues(quizDetails[questionIndex].question);
+      setSelectedOption(userResponse[questionIndex]?.selectedOption || null);
       settingOptionsRandomly();
-      setSelectedOption(null);
     }
-  }, [questionIndex, quizDetails]); // Trigger when 'questionIndex' or 'quizDetails' change
+  }, [questionIndex, quizDetails, userResponse]); // Trigger when 'questionIndex' or 'quizDetails' change
 
   const settingOptionsRandomly = () => {
     if (quizDetails.length > 0) {
@@ -36,8 +38,7 @@ const Quiz = () => {
   const handleOptionChange = (option) => {
     if (option === quizDetails[questionIndex].correct_answer) {
       setIsAnswerCorrect(true);
-    }
-    else{
+    } else {
       setIsAnswerCorrect(false);
     }
     setSelectedOption(option);
@@ -63,10 +64,10 @@ const Quiz = () => {
           isAnswerCorrect: `${isAnswerCorrect}`,
         })
       );
+      handleNext();
     } else {
       alert("Please choose an option before submitting");
     }
-    handleNext();
   };
   const handleSubmitQuiz = () => {};
   const formattedQuestion = ques
@@ -77,6 +78,7 @@ const Quiz = () => {
     <div className="container mt-5 p-3 d-flex justify-content-center  align-center flex-column">
       <hr />
       <h5 className="mb-3">{formattedQuestion}</h5>
+      <h1>{selectedOption}</h1>
       <Form>
         {options.map((item, index) => (
           <Form.Check
@@ -84,6 +86,9 @@ const Quiz = () => {
             type="radio"
             label={`${item}`}
             checked={selectedOption === item}
+            defaultChecked={
+              userResponse[questionIndex]?.selectedOption === item
+            }
             onChange={() => handleOptionChange(item)}
           />
         ))}
