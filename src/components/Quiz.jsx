@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useSelector, useDispatch } from "react-redux";
 import { showQuiz, getUserResponse } from "../features/quiz/quizSlice";
@@ -7,6 +8,7 @@ const Quiz = () => {
   const quizDetails = useSelector((state) => state.showQuiz.quizData);
   const userResponse = useSelector((state) => state.showQuiz.userResponse);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [questionIndex, setQuestionIndex] = useState(0);
   const [ques, setQues] = useState("");
   const [options, setOptions] = useState([]);
@@ -77,7 +79,9 @@ const Quiz = () => {
       alert("Please choose an option before submitting");
     }
   };
-  const handleSubmitQuiz = () => {};
+  const handleSubmitQuiz = () => {
+    navigate("/results");
+  };
   const formattedQuestion = ques
     .replace(/&#039;/g, "'")
     .replace(/&quot;/g, '"');
