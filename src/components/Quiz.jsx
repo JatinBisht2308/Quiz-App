@@ -18,7 +18,15 @@ const Quiz = () => {
     if (quizDetails.length > 0) {
       // Check if there are quizDetails available
       setQues(quizDetails[questionIndex].question);
-      setSelectedOption(userResponse[questionIndex]?.selectedOption || null);
+      const userResponseForQuestion = userResponse.find(
+        (response) => response.questionIndex === questionIndex.toString()
+      );
+
+      if (userResponseForQuestion) {
+        setSelectedOption(userResponseForQuestion.selectedOption);
+      } else {
+        setSelectedOption(null);
+      }
       settingOptionsRandomly();
     }
   }, [questionIndex, quizDetails, userResponse]); // Trigger when 'questionIndex' or 'quizDetails' change
@@ -86,9 +94,7 @@ const Quiz = () => {
             type="radio"
             label={`${item}`}
             checked={selectedOption === item}
-            defaultChecked={
-              userResponse[questionIndex]?.selectedOption === item
-            }
+            defaultChecked={selectedOption}
             onChange={() => handleOptionChange(item)}
           />
         ))}
