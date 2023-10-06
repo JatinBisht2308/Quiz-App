@@ -66,6 +66,7 @@ const Quiz = () => {
     } else {
       alert("Please choose an option before submitting");
     }
+    handleNext();
   };
   const handleSubmitQuiz = () => {};
   const formattedQuestion = ques
