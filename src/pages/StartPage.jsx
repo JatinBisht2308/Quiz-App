@@ -16,6 +16,7 @@ const StartPage = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
   const [quizData, setQuizData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,6 +55,7 @@ const StartPage = () => {
   const handleStartQuiz = () => {
     setShowInstructions(false);
     setShowQuizz(true);
+    setIsTimerRunning(true);
   };
 
   return (
@@ -70,7 +72,7 @@ const StartPage = () => {
           <QuestionCounter
             totalQuestions={15}
           />
-          <Timer />
+          <Timer isRunning={isTimerRunning} />
         </div>
         <div className="col-md-9 bg-light right-section">
           {/* Instructions Modal */}

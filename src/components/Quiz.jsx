@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useSelector, useDispatch } from "react-redux";
-import { showQuiz, getUserResponse, updateUserResponse } from "../features/quiz/quizSlice";
+import {
+  showQuiz,
+  getUserResponse,
+  updateUserResponse,
+} from "../features/quiz/quizSlice";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 const Quiz = () => {
   const quizDetails = useSelector((state) => state.showQuiz.quizData);
@@ -66,9 +70,11 @@ const Quiz = () => {
     }
   };
   const handleSubmitQuestion = () => {
-    const checkAnswered = userResponse.find(obj => obj.questionIndex == questionIndex);
-    console.log("userr response aara ha",userResponse);
-    console.log("check horiya ya nahi",checkAnswered);
+    const checkAnswered = userResponse.find(
+      (obj) => obj.questionIndex == questionIndex
+    );
+    console.log("userr response aara ha", userResponse);
+    console.log("check horiya ya nahi", checkAnswered);
     if (selectedOption != null && !checkAnswered) {
       dispatch(
         getUserResponse({
@@ -88,8 +94,7 @@ const Quiz = () => {
       );
       console.log("updated the user response selected option");
       handleNext();
-    }
-    else {
+    } else {
       alert("Please choose an option before submitting");
     }
   };

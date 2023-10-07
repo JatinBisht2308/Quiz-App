@@ -12,17 +12,3 @@
     font-weight: 500;
     color: azure;
    }
-  .animate {
-    animation: colorChange 1s infinite; /* Add a simple color animation */
-  }
-  
-  @keyframes colorChange {
-    from {
-      color: #31393C;
-      font-size: 58px;
-    }
-    to {
-      color: #ffffff;
-      font-size: 60px;
-    }
-  }
