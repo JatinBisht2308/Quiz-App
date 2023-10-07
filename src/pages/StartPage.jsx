@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar";
 import Instructions from "../components/Instructions";
 import Quiz from "../components/Quiz";
 import QuestionCounter from "../components/QuestionCounter";
+import Timer from '../components/Timer';
 
 const StartPage = () => {
   const [showInstructions, setShowInstructions] = useState(true);
@@ -63,12 +64,13 @@ const StartPage = () => {
         style={{ height: `calc(100vh - ${navbarHeight}px)` }}
       >
         <div
-          className="col-md-3 left-section"
+          className="col-md-3 left-section d-flex flex-column items-center"
           style={{ backgroundColor: "#31393C" }}
         >
           <QuestionCounter
             totalQuestions={15}
           />
+          <Timer />
         </div>
         <div className="col-md-9 bg-light right-section">
           {/* Instructions Modal */}
