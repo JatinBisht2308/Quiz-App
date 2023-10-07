@@ -33,8 +33,23 @@ export const quizSlice = createSlice({
         state.userResponse.push(response);
       }
     },
+    updateUserResponse: (state,action) =>{
+      const updatedUserResponse = action.payload;
+      state.userResponse = state.userResponse.map((obj) =>{
+        if (obj.questionIndex == updatedUserResponse.questionIndex) {
+          // Update the selectedOption in the matching object
+          return {
+            ...obj, // Spread the original object properties
+            selectedOption: updatedUserResponse.selectedOption, // Update the selectedOption
+          };
+        } else {
+          // Return the original object if the questionIndex doesn't match
+          return obj;
+        }
+      });
+    },
   },
 });
 
-export const { showQuiz, getUserResponse } = quizSlice.actions;
+export const { showQuiz, getUserResponse,updateUserResponse } = quizSlice.actions;
 export default quizSlice.reducer;

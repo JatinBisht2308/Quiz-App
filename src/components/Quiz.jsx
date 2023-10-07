@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useSelector, useDispatch } from "react-redux";
-import { showQuiz, getUserResponse } from "../features/quiz/quizSlice";
+import { showQuiz, getUserResponse, updateUserResponse } from "../features/quiz/quizSlice";
 import { AiOutlineArrowRight, AiOutlineArrowLeft } from "react-icons/ai";
 const Quiz = () => {
   const quizDetails = useSelector((state) => state.showQuiz.quizData);
@@ -66,7 +66,10 @@ const Quiz = () => {
     }
   };
   const handleSubmitQuestion = () => {
-    if (selectedOption != null) {
+    const checkAnswered = userResponse.find(obj => obj.questionIndex == questionIndex);
+    console.log("userr response aara ha",userResponse);
+    console.log("check horiya ya nahi",checkAnswered);
+    if (selectedOption != null && !checkAnswered) {
       dispatch(
         getUserResponse({
           questionIndex: `${questionIndex}`,
@@ -75,7 +78,18 @@ const Quiz = () => {
         })
       );
       handleNext();
-    } else {
+    } else if (selectedOption != null && checkAnswered) {
+      dispatch(
+        updateUserResponse({
+          questionIndex: `${questionIndex}`,
+          selectedOption: `${selectedOption}`,
+          isAnswerCorrect: `${isAnswerCorrect}`,
+        })
+      );
+      console.log("updated the user response selected option");
+      handleNext();
+    }
+    else {
       alert("Please choose an option before submitting");
     }
   };
