@@ -99,6 +99,7 @@ const Quiz = () => {
     }
   };
   const handleSubmitQuiz = () => {
+    localStorage.clear();
     navigate("/results");
   };
   const formattedQuestion = ques

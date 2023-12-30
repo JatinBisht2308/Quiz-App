@@ -7,26 +7,26 @@ const ResultPage = () => {
   const userResponse = useSelector(
     (state) => state.getUserResponse.userResponse
   );
-  
-  const [score, setScore] = useState(0);
-  
+  let initialScore = 0;
+  const [score, setScore] = useState(initialScore);
+
   useEffect(() => {
-    console.log(userResponse);
+    console.log("user response ha ye:", userResponse);
     // Calculate the score by iterating through userResponse
     userResponse.forEach((response) => {
-      console.log("hi ji");
-        if (response.isAnswerCorrect) {
-          console.log("Hello");
-          setScore((prevScore) => prevScore + 1);
-        }
+      if (response.isAnswerCorrect) {
+        initialScore++;
       }
-    );
-  }, [userResponse]);
+    });
+    setScore(initialScore);
+  }, []);
 
   return (
     <div className="ResultsPage">
       <Navbar />
-      <h1>This page is under development.</h1>
+      <h1>
+        Your score is: <span>{score}</span>
+      </h1>
     </div>
   );
 };

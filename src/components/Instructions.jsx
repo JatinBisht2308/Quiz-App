@@ -5,6 +5,7 @@ const Instructions = ({ show, onStartQuiz }) => {
   const [agreed, setAgreed] = useState(false);
 
   const handleCheckboxChange = (e) => {
+    localStorage.clear();
     setAgreed(e.target.checked);
   };
 

@@ -29,7 +29,7 @@ const StartPage = () => {
 
   useEffect(() => {
     // Load quiz data when the component mounts
-    if (showQuizz && quizData.length === 0) {
+    if (showQuizz && quizData.length === 0 && localStorage.getItem('qno')==null) {
       axios
         .get("https://opentdb.com/api.php?amount=15")
         .then((response) => {
@@ -39,6 +39,8 @@ const StartPage = () => {
             dispatch(showQuiz(response.data.results));
             setQuizData(response.data.results);
             setIsLoading(false);
+            // storing data in the local storage
+            localStorage.setItem('qno',JSON.stringify(response.data.results));
           } else {
             console.error("Failed to fetch data from the API");
           }
